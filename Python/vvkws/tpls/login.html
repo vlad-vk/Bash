@@ -1,0 +1,14 @@
+{% extends "base.htm" %}
+{% block content %}
+{% if form.errors %}
+<p class="error">Heвepнoe имя или пароль</р>
+{% endif %}
+<form action^"" method="post">
+<label for="username">Имя пользователя :</label>
+<input type="text" name="username" value="" id="username">
+<label for="password">Пароль:</label>
+<input type="password" name="password" value="" id="password">
+<input type="submit" value="login" />
+<input type="hidden" name="next" value="{{ next|escape }}" />
+</form>
+{% endblock %}

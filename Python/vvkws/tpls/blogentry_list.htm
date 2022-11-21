@@ -1,0 +1,13 @@
+<html lang="en">
+<head>
+    <title>Test-blog</title>
+</head>
+<body>
+    <h1>Blog entries</h1>
+    <ul>
+    {% for entry in object_list %}
+        <li><a href="{% url blog-entry-detail object_id=entry.id %}">{{entry.content}}</a></li>
+    {% endfor %}
+    </ul>
+</body>
+</html>

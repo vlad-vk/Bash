@@ -1,0 +1,13 @@
+<!D0CTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//ENM>
+<html>
+<head>
+<title>Список книг</title>
+</head>
+<body>
+<table>
+    {% for r in resrow %}
+<tr><td>ПОле1: {{ r.0 }} </td><td> Поле2: {{ r.1 }} </td></tr><br>
+    {% endfor %}
+</table>
+</body>
+</html>

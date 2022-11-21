@@ -1,0 +1,13 @@
+<!D0CTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//ENM>
+<html>
+<head>
+<title>Список хостов</title>
+</head>
+<body>
+<table>
+    {% for r in resrow %}
+<tr><td>Компьютер: {{ r.0 }} </td><td> Пользователь: {{ r.1 }} </td></tr><br>
+    {% endfor %}
+</table>
+</body>
+</html>

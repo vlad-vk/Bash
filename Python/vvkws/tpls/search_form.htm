@@ -1,0 +1,34 @@
+<!-- вариант 1
+<html>
+<head>
+<title>Поиск</title>
+</head>
+<body>
+<form action="/search/" method="get">
+    <input type="text" name="q">
+    <input type="submit" value="Найти">
+</form>
+</body>
+</html>
+-->
+<!-- вариант 2 -->
+<html>
+<head>
+    <title>Поиск</title>
+</head>
+<body>
+    {% if errors %}
+        <!-- <p style="color: red;">Введите поисковый запрос от 4 до 10 символов.</p> -->
+        <ul>
+        {% for err in errors %}
+            <li>{{ err }}</li>
+        {% endfor %}
+        </ul>        
+    {% endif %}
+<!-- <form action="/search/" method="get"> -->
+<form action="" method="get">
+    <input type="text" name="q">
+    <input type="submit" value="Найти">
+</form>
+</body>
+</html>

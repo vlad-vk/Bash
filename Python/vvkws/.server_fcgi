@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# apt-get install python-flup
+
+# настроить fastcgi в http-сервере:
+# <Directory...>
+#    FastCGIExternalServer /dat/wwwvvk/vvkws.fcgi -host 127.0.0.1:8008
+###  FastCGIExternalServer /dat/wwwvvk/vvkws.fcgi -socket /tmp/vvkws.sock
+#    RewriteEngine On
+#    RewriteRule ^/(.*)$ /vvkws.fcgi/$1 [QSA,L]
+# </Directory>
+
+# Если при обмене данными между appache fastcgi и python используются UNIX-сокеты, то надо
+# позаботиться о том, чтобы у процесса apache был доступ на запись в файл сокета...
+# Если не будет прав доступа, то в логе apache можно увидеть следующее:
+# (13)Permission denied: FastCGI: failed to connect to server
+# FastCGI: incomplete headers (0 bytes) received from server
+# При соединении через порт (в нашем случае используется 8008, можно использовать любой свободный), файл
+# сокета не создаётся, а обмен данными между модулями fastcgi осуществляется через указанный порт.
+
+# .server.ac:
+# # после запуска процесса сервера со стороны python, меняем права доступа на вновь созданный файл сокета
+# sleep 5;chmod 777 /tmp/vvkws.sock
+
+# Запуск многопоточного сервера на TCP порте
+  ./manage.py runfcgi daemonize=false host=127.0.0.1 port=8008 --settings=vvkws.settings
+
+# Запуск сервера с несколькими процессами на UNIX-сокете
+# ./manage.py runfcgi method=prefork socket=/tmp/vvkws.sock pidfile=/tmp/vvkws.pid --settings=vvkws.settings
+
+# Запуск без перевода процесса в фоновый режим (удобно для отладки):
+# ./.server_ac &
+# ./manage.py runfcgi daemonize=false socket=/tmp/vvkws.sock maxrequests=1 --settings=vvkws.settings

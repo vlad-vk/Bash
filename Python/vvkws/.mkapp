@@ -1,0 +1,6 @@
+#!/bin/bash
+
+APPLICATION_NAME="books"
+
+./manage.py startapp $APPLICATION_NAME
+

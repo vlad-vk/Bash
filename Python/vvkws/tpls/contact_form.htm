@@ -1,0 +1,80 @@
+<html>
+<head>
+<title>Свяжитесь с нами</title>
+<style type="text/css">
+    ul.errorlist {
+    margin: 0;
+    padding: 0;
+}
+.errorlist li {
+    background-color: red;
+    color: white;
+    display: block;
+    font-size: 10px;
+    margin: 0 0 3px;
+    padding: 4px 5px;
+}
+</style>
+</head>
+
+<body>
+<h1>Свяжитесь с нами</h1>
+<!-- вариант 1
+{% if errors %}
+    <ul>
+    {% for error in errors %}
+    <li>{{ error }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+<form action="" method="POST">
+    <p>Тема: <input type="text" name="subject" value="{{ subject }}"> </p>
+    <p>Ваш e-mail (необязательно): <input type="text" name="email" value="{{ email }}"></p>
+    <p>Сообщение: <textarea name="message" rows="10" cols="50">{{ message }}</textarea></p>
+    <input type="submit" value="Отправить">
+</form>
+-->
+<!-- вариант 2,3
+{% if form.errors %}
+    <p style="color: red;">Исправьте следующие ошибки{{ form.errors }}.</p>
+{% endif %}
+-->
+<div class="field{% if form.message.errors %} errors{% endif %}">
+    {% if form.message.errors %}
+        <ul>
+        {% for error in form.message.errors %}
+            <li><strong>{{ error }}</strong></li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+
+<!-- вариант 2
+<form action="" method="POST">
+<table>
+{{ form.as_table }}
+</table>
+<input type="submit" value="Отправить">
+</form>
+-->
+
+<form action="" method="post">
+    <div class="field">
+        {{ form.subject.errors }}
+        <label for="id_subject">Teмa:</label>
+        {{ form.subject }}
+    </div>
+    <div class="field">
+        {{ form.email.errors }}
+        <label for="id_email">Baш адрес e-mail:</label>
+        {{ form.email }}
+    </div>
+    <div class="field">
+        {{ form.message.errors }}
+        <label for="id_message">Cooбщение:</label>
+        {{ form.message }}
+    </div>
+<input type="submit" value="Отправить">
+
+</body>
+</html>
